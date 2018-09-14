@@ -35,9 +35,22 @@ with open(csvpath, newline="") as csvfile:
 
     print(f"Total Votes: {rec_count}")
     print("-------------------------")
+
+    totalVotes = sum(cand_dic.values())
+
+    maxCount = 0
+    winnnerName = None
     
     for k in cand_dic:
-        print(f"{k} : {cand_dic[k]}")
+        candPercent = round((float(cand_dic[k])/float(totalVotes)) * 100, 3)
+        print(f"{k} : {candPercent}%  ({cand_dic[k]})")
+        if(cand_dic[k] > maxCount ):
+            maxCount = cand_dic[k]
+            winnnerName = k
+
+    print("---------------------------")
+    print(f"Winner : {winnnerName}")
+    print("---------------------------")
 
 
 
