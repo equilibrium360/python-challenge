@@ -10,12 +10,12 @@ csvpath = os.path.join( "Resources", "election_data.csv")
 print("\nElection Results")
 print("--------------------------")
 
-rec_count = 0
-cand_dic = dict()
+recCount = 0
+candDict = dict()
 
-def getCurrCandCount(cand_param):
-    cand_param
-    cvalue = cand_dic.get(cand_param)
+def getCurrCandCount(candParam):
+    candParam
+    cvalue = candDict.get(candParam)
     if(cvalue == None):
         return 0
     else:
@@ -27,25 +27,25 @@ with open(csvpath, newline="") as csvfile:
     csv_header = next(csvreader)
     # Loop through data
     for row in csvreader:
-        rec_count += 1
+        recCount += 1
         candName = row[2]
         currCandCount = getCurrCandCount(candName)
         
-        cand_dic[candName] = currCandCount + 1
+        candDict[candName] = currCandCount + 1
 
-    print(f"Total Votes: {rec_count}")
+    print(f"Total Votes: {recCount}")
     print("-------------------------")
 
-    totalVotes = sum(cand_dic.values())
+    totalVotes = sum(candDict.values())
 
     maxCount = 0
     winnnerName = None
     
-    for k in cand_dic:
-        candPercent = round((float(cand_dic[k])/float(totalVotes)) * 100, 3)
-        print(f"{k} : {candPercent}%  ({cand_dic[k]})")
-        if(cand_dic[k] > maxCount ):
-            maxCount = cand_dic[k]
+    for k in candDict:
+        candPercent = round((float(candDict[k])/float(totalVotes)) * 100, 3)
+        print(f"{k} : {candPercent}%  ({candDict[k]})")
+        if(candDict[k] > maxCount ):
+            maxCount = candDict[k]
             winnnerName = k
 
     print("---------------------------")
