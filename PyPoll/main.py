@@ -40,10 +40,12 @@ with open(csvpath, newline="") as csvfile:
 
     maxCount = 0
     winnnerName = None
+    candListStr = ""
     
     for k in candDict:
         candPercent = round((float(candDict[k])/float(totalVotes)) * 100, 3)
         print(f"{k} : {candPercent}%  ({candDict[k]})")
+        candListStr = candListStr + f"\n{k} : {candPercent}%  ({candDict[k]})"
         if(candDict[k] > maxCount ):
             maxCount = candDict[k]
             winnnerName = k
@@ -52,5 +54,14 @@ with open(csvpath, newline="") as csvfile:
     print(f"Winner : {winnnerName}")
     print("---------------------------")
 
-
+resultsFile = open("ResultsFile.txt", "w")
+resultsFile.write("\nElection Results")
+resultsFile.write("\n--------------------------")
+resultsFile.write(f"\nTotal Votes: {recCount}")
+resultsFile.write("\n-------------------------")
+resultsFile.write(candListStr)
+resultsFile.write("\n---------------------------")
+resultsFile.write(f"\nWinner : {winnnerName}")
+resultsFile.write("\n---------------------------")
+resultsFile.close()
 

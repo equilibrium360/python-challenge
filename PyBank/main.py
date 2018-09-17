@@ -20,6 +20,9 @@ with open(csvpath, newline="") as csvfile:
 
     great_incr_profits = 0
     great_decr_profits = 0
+    gipDate = ""
+    gdpDate = ""
+
 
     csv_header = next(csvreader)
    # print(f"BudgetData Header: {csv_header}")
@@ -32,18 +35,31 @@ with open(csvpath, newline="") as csvfile:
         if(rec_count > 1):
             change = int(row[1]) - previous_value
             if(change > great_incr_profits):
+                gipDate = row[0]
                 great_incr_profits = change
             if(change < great_decr_profits):
-                great_decr_profits = change                
+                great_decr_profits = change  
+                gdpDate = row[0]              
             change_sum += change
            # print(f"{row[0]}, {row[1]}, {previous_value}, {change_sum}")
         previous_value = int(row[1])
     print(f"Total Months: {rec_count}" )
     print(f"Total: ${net_profit_loss}" )
-    print(f"{change_sum}, {rec_count}")
+    #print(f"{change_sum}, {rec_count}")
     print(f"Average Change: ${round(change_sum/(rec_count-1), 2)}" )
-    print(f"Greatest Increase in Profits: {great_incr_profits}")
-    print(f"Greatest Decrease in Profits: {great_decr_profits}")
+    print(f"Greatest Increase in Profits: {gipDate} (${great_incr_profits})")
+    print(f"Greatest Decrease in Profits: {gdpDate} (${great_decr_profits})")
+
+resultsFile = open("ResultsFile.txt", "w")
+resultsFile.write("\nFinancial Analysis")
+resultsFile.write("\n--------------------------")
+resultsFile.write(f"\nTotal Months: {rec_count}" )
+resultsFile.write(f"\nTotal: ${net_profit_loss}" )
+
+resultsFile.write(f"\nAverage Change: ${round(change_sum/(rec_count-1), 2)}" )
+resultsFile.write(f"\nGreatest Increase in Profits: {gipDate} (${great_incr_profits})")
+resultsFile.write(f"\nGreatest Decrease in Profits: {gdpDate} (${great_decr_profits})")
+resultsFile.close()
 
 
 
